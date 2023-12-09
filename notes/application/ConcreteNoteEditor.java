@@ -16,19 +16,20 @@ public class ConcreteNoteEditor implements NoteEditor {
 
     public ConcreteNoteEditor(
             NotesPresenter notesPresenter,
-            NotesDatabaseContext dbContext){
+            NotesDatabaseContext dbContext) {
         this.dbContext = dbContext;
         this.notesPresenter = notesPresenter;
     }
 
-    public void printAll(){
+    public void printAll() {
         notesPresenter.printAll(getAll());
     }
 
     @Override
     public boolean add(Note item) {
         dbContext.getAll().add(item);
-        return dbContext.saveChanges();
+        return dbContext.saveChanges(item.getId(), item.getUserId(), item.getTitle(), item.getDetails(),
+                item.getCreationDate());
     }
 
     @Override
@@ -63,9 +64,22 @@ public class ConcreteNoteEditor implements NoteEditor {
     }
 
     // New code
-    // @Override
-    // public boolean saveChanges() {
-    //     return dbContext.saveChanges();
-    // }
+    @Override
+    public boolean saveChanges(int userId, int id, String title, String details, Date creationDate) {
+        try {
+            // Создаем новую заметку с переданными значениями
+            Note newNote = new Note(userId, id, title, details, creationDate);
+    
+            // Добавляем новую заметку в базу данных
+            if (add(newNote)) {
+                return dbContext.saveChanges(userId, id, title, details, creationDate); // Возвращаем результат сохранения изменений
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
+            return false; // Возвращаем false в случае ошибки
+        }
+    }
 
 }
