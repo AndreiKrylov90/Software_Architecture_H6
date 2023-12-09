@@ -9,4 +9,7 @@ public interface NotesDatabaseContext {
     Collection<Note> getAll();
     boolean saveChanges();
 
+    // new code
+    
+
 }

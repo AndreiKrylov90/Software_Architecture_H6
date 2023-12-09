@@ -62,5 +62,10 @@ public class ConcreteNoteEditor implements NoteEditor {
         return dbContext.getAll();
     }
 
+    // New code
+    // @Override
+    // public boolean saveChanges() {
+    //     return dbContext.saveChanges();
+    // }
 
 }
