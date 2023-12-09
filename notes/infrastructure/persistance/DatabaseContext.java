@@ -20,18 +20,7 @@ public class DatabaseContext extends DbContext implements NotesDatabaseContext {
     }
 
     public Collection<Note> getAll() {
-        // Collection<Note> notesList = new ArrayList<>();
-        // //TODO: Этого кастинга быть не должно, тут должен работать внутренний механизм фреймворка
-        // for (NotesRecord record : ((NotesDatabase)database).getNotesTable().getRecords()){
-        //     notesList.add(new Note(
-        //             record.getId(),
-        //             record.getUserId(),
-        //             record.getTitle(),
-        //             record.getDetails(),
-        //             record.getCreationDate()
-        //     ));
-        // }
-        // return notesList;
+
         
         return notes;
 
@@ -45,24 +34,12 @@ public class DatabaseContext extends DbContext implements NotesDatabaseContext {
     @Override
     public boolean saveChanges(Note note) {
         try {
-            // Создаем новую заметку с переданными значениями
             Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
-    
-            // Добавляем новую заметку в коллекцию
             notes.add(newNote);
-    
-            // Ваш код для обновления записей в базе данных
-            // Например, если у вас есть JPA EntityManager:
-            // entityManager.getTransaction().begin();
-            // for (Note note : notes) {
-            //     entityManager.persist(note);
-            // }
-            // entityManager.getTransaction().commit();
-    
-            return true; // Возвращаем true, если сохранение прошло успешно
+            return true; 
         } catch (Exception e) {
-            e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
-            return false; // Возвращаем false в случае ошибки
+            e.printStackTrace(); 
+            return false; 
         }
     }
 

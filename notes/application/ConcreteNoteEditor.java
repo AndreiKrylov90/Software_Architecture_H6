@@ -62,38 +62,18 @@ public class ConcreteNoteEditor implements NoteEditor {
         return dbContext.getAll();
     }
 
-    // New code
     @Override
     public boolean saveChanges(Note note) {
         try {
-            // Создаем новую заметку с переданными значениями
-            // Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
-    
-            // Добавляем новую заметку в базу данных
             if (add(note)) {
-                return dbContext.saveChanges(note); // Возвращаем результат сохранения изменений
+                return dbContext.saveChanges(note); 
             } else {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
-            return false; // Возвращаем false в случае ошибки
+            e.printStackTrace();
+            return false;
         }
-
-        // try {
-        //     // Создаем новую заметку с переданными значениями
-        //     Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
-    
-        //     // Добавляем новую заметку в базу данных
-        //     if (add(newNote)) {
-        //         return dbContext.saveChanges(note); // Возвращаем результат сохранения изменений
-        //     } else {
-        //         return false;
-        //     }
-        // } catch (Exception e) {
-        //     e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
-        //     return false; // Возвращаем false в случае ошибки
-        // }
 
     }
 

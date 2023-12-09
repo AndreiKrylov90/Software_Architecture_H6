@@ -16,7 +16,6 @@ public class NotesController extends Controller {
 
     public void routeAddNote(Note note) {
         this.notesEditor.add(note);
-        // notesEditor.saveChanges(note);
     }
 
     public void routeRemoveNote(Note note) {

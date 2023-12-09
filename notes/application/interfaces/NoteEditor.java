@@ -7,7 +7,6 @@ public interface NoteEditor extends Editor<Note, Integer> {
 
     void printAll();
 
-    // new code
     boolean saveChanges(Note note);
 
 }
