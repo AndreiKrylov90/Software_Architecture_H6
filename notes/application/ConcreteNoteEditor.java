@@ -27,9 +27,8 @@ public class ConcreteNoteEditor implements NoteEditor {
 
     @Override
     public boolean add(Note item) {
-        dbContext.getAll().add(item);
-        return dbContext.saveChanges(item.getId(), item.getUserId(), item.getTitle(), item.getDetails(),
-                item.getCreationDate());
+        //dbContext.getAll().add(item);
+        return dbContext.saveChanges(item);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class ConcreteNoteEditor implements NoteEditor {
         note.get().setEditDate(new Date());
         note.get().setUserId(item.getUserId());
 
-        return dbContext.saveChanges();
+        return dbContext.saveChanges(item);
     }
 
     @Override
@@ -65,14 +64,14 @@ public class ConcreteNoteEditor implements NoteEditor {
 
     // New code
     @Override
-    public boolean saveChanges(int userId, int id, String title, String details, Date creationDate) {
+    public boolean saveChanges(Note note) {
         try {
             // Создаем новую заметку с переданными значениями
-            Note newNote = new Note(userId, id, title, details, creationDate);
+            // Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
     
             // Добавляем новую заметку в базу данных
-            if (add(newNote)) {
-                return dbContext.saveChanges(userId, id, title, details, creationDate); // Возвращаем результат сохранения изменений
+            if (add(note)) {
+                return dbContext.saveChanges(note); // Возвращаем результат сохранения изменений
             } else {
                 return false;
             }
@@ -80,6 +79,22 @@ public class ConcreteNoteEditor implements NoteEditor {
             e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
             return false; // Возвращаем false в случае ошибки
         }
+
+        // try {
+        //     // Создаем новую заметку с переданными значениями
+        //     Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
+    
+        //     // Добавляем новую заметку в базу данных
+        //     if (add(newNote)) {
+        //         return dbContext.saveChanges(note); // Возвращаем результат сохранения изменений
+        //     } else {
+        //         return false;
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace(); // Логируем ошибку, если что-то пошло не так
+        //     return false; // Возвращаем false в случае ошибки
+        // }
+
     }
 
 }

@@ -12,24 +12,29 @@ import java.util.Date;
 
 public class DatabaseContext extends DbContext implements NotesDatabaseContext {
 
+    private Collection<Note> notes;
 
     public DatabaseContext(Database database) {
         super(database);
+        this.notes = new ArrayList<>();
     }
 
     public Collection<Note> getAll() {
-        Collection<Note> notesList = new ArrayList<>();
-        //TODO: Этого кастинга быть не должно, тут должен работать внутренний механизм фреймворка
-        for (NotesRecord record : ((NotesDatabase)database).getNotesTable().getRecords()){
-            notesList.add(new Note(
-                    record.getId(),
-                    record.getUserId(),
-                    record.getTitle(),
-                    record.getDetails(),
-                    record.getCreationDate()
-            ));
-        }
-        return notesList;
+        // Collection<Note> notesList = new ArrayList<>();
+        // //TODO: Этого кастинга быть не должно, тут должен работать внутренний механизм фреймворка
+        // for (NotesRecord record : ((NotesDatabase)database).getNotesTable().getRecords()){
+        //     notesList.add(new Note(
+        //             record.getId(),
+        //             record.getUserId(),
+        //             record.getTitle(),
+        //             record.getDetails(),
+        //             record.getCreationDate()
+        //     ));
+        // }
+        // return notesList;
+        
+        return notes;
+
     }
 
     @Override
@@ -38,20 +43,20 @@ public class DatabaseContext extends DbContext implements NotesDatabaseContext {
     }
 
     @Override
-    public boolean saveChanges(int userId, int id, String title, String details, Date creationDate) {
+    public boolean saveChanges(Note note) {
         try {
-            Collection<Note> notes = getAll();
-    
             // Создаем новую заметку с переданными значениями
-            Note newNote = new Note(userId, id, title, details, creationDate);
+            Note newNote = new Note(note.getId(), note.getUserId(),  note.getTitle(), note.getDetails(), note.getCreationDate());
     
             // Добавляем новую заметку в коллекцию
             notes.add(newNote);
     
-            // Ваш код для сохранения изменений в базе данных
+            // Ваш код для обновления записей в базе данных
             // Например, если у вас есть JPA EntityManager:
             // entityManager.getTransaction().begin();
-            // entityManager.persist(newNote);
+            // for (Note note : notes) {
+            //     entityManager.persist(note);
+            // }
             // entityManager.getTransaction().commit();
     
             return true; // Возвращаем true, если сохранение прошло успешно

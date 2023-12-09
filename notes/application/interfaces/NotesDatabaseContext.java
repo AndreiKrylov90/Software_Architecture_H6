@@ -8,6 +8,6 @@ import java.util.Collection;
 public interface NotesDatabaseContext {
 
     Collection<Note> getAll();
-    boolean saveChanges(int userId, int id, String title, String details, Date creationDate);
+    boolean saveChanges(Note note);
 
 }

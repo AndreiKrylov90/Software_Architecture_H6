@@ -16,6 +16,7 @@ public class NotesController extends Controller {
 
     public void routeAddNote(Note note) {
         this.notesEditor.add(note);
+        // notesEditor.saveChanges(note);
     }
 
     public void routeRemoveNote(Note note) {
@@ -26,8 +27,8 @@ public class NotesController extends Controller {
         notesEditor.printAll();
     }
 
-    public void saveChanges(int userId, int id, String title, String details, Date creationDate) {
-        notesEditor.saveChanges(userId, id, title, details, creationDate);
+    public void saveChanges(Note note) {
+        notesEditor.saveChanges(note);
     }
 
 }

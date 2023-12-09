@@ -10,7 +10,7 @@ public abstract class DbContext {
 
     protected abstract void onModelCreating(ModelBuilder builder);
 
-    public boolean saveChanges(int userId, int id, String title, String details, Date creationDate){
+    public boolean saveChanges(Note note){
         //TODO: Сохранение изменений в базе данных
         return true;
     }

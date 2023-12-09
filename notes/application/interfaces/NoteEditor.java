@@ -8,6 +8,6 @@ public interface NoteEditor extends Editor<Note, Integer> {
     void printAll();
 
     // new code
-    boolean saveChanges(int userId, int id, String title, String details, Date creationDate);
+    boolean saveChanges(Note note);
 
 }
